@@ -1,9 +1,10 @@
+import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
 import localFont from "next/font/local";
 
 const koFont = localFont({
-  src: './fonts/NotoSansKR-Regular.otf',
-  display: 'swap',
+  src: "./fonts/NotoSansKR-Regular.otf",
+  display: "swap",
 });
 
 export const metadata = {
@@ -18,7 +19,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={koFont.className}>{children}</body>
+      <body className={koFont.className}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
