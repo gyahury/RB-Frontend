@@ -1,21 +1,24 @@
-import './globals.css'
-import { Nunito } from 'next/font/google'
+import "./globals.css";
+import localFont from "next/font/local";
 
-const nunito = Nunito({ subsets: ['latin'] })
+const koFont = localFont({
+  src: './fonts/NotoSansKR-Regular.otf',
+  display: 'swap',
+});
 
 export const metadata = {
-  title: 'R&B - 부동산 매물 관리 플랫폼 초기',
-  description: '부동산 매물 관리 플랫폼 초기',
-}
+  title: "R&B - 부동산 매물 관리 플랫폼",
+  description: "부동산 매물 관리 플랫폼",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="ko">
-      <body className={nunito.className}>{children}</body>
+      <body className={koFont.className}>{children}</body>
     </html>
-  )
+  );
 }

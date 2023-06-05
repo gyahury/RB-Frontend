@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <div>rnb frontend start </div>
+    <div>한글 - English </div>
   )
 }
