@@ -35,7 +35,11 @@ const UserMenu = () => {
           <div className="flex flex-col cursor-pointer ">
             <MenuItems 
               onClick={() => {}}
-              subMenuName="Login"
+              subMenuName="로그인"
+            />
+            <MenuItems 
+              onClick={() => {}}
+              subMenuName="회원가입"
             />
           </div>
         </div>
