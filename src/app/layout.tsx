@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={koFont.className}>
-        <Modal isOpen />
+        <Modal actionLabel="제출" secondaryActionLabel="취소" title="로그인" isOpen />
         <Navbar />
         {children}
       </body>
