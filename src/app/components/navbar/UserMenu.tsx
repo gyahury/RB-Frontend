@@ -4,8 +4,10 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import { useCallback, useState } from "react";
 import MenuItems from "./MenuItems";
+import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 const UserMenu = () => {
+  const registerModal = useRegisterModal();
   const [isOpen, setIsOpen] = useState(false);
 
   const actionOpen = useCallback(() => {
@@ -38,7 +40,7 @@ const UserMenu = () => {
               subMenuName="로그인"
             />
             <MenuItems 
-              onClick={() => {}}
+              onClick={registerModal.onOpen}
               subMenuName="회원가입"
             />
           </div>

@@ -1,7 +1,7 @@
 import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
 import localFont from "next/font/local";
-import Modal from "./modals/Modal";
+import RegisterModal from "./modals/RegisterModal";
 
 const koFont = localFont({
   src: "./fonts/NotoSansKR-Regular.otf",
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={koFont.className}>
-        <Modal actionLabel="제출" secondaryActionLabel="취소" title="로그인" isOpen />
+        <RegisterModal />
         <Navbar />
         {children}
       </body>
