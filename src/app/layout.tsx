@@ -1,6 +1,7 @@
 import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
 import localFont from "next/font/local";
+import RegisterModal from "./modals/RegisterModal";
 
 const koFont = localFont({
   src: "./fonts/NotoSansKR-Regular.otf",
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={koFont.className}>
+        <RegisterModal />
         <Navbar />
         {children}
       </body>
