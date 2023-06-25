@@ -7,6 +7,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "../hooks/useRegisterModal";
 import Modal from "./Modal";
 import Heading from "../components/Heading";
+import Input from "../components/inputs/Input";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -48,6 +49,14 @@ const RegisterModal = () => {
         title="환영합니다"
         subtitle="계정을 생성해보세요."
         center
+      />
+      <Input 
+        id="email"
+        label="Email"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
       />
     </div>
   )
