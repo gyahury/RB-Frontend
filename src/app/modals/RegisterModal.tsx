@@ -16,60 +16,71 @@ const RegisterModal = () => {
   const {
     register,
     handleSubmit,
-    formState: {
-        errors,
-    }
+    formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-        name: '',
-        email: '',
-        password: ''
-    }
+      email: "",
+      name: "",
+      password: "",
+    },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    // axios.post('/api/register', data)
-    // .then(() => {
-    //   registerModal.onClose();
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // })
-    // .finally(() => {
-    //   setIsLoading(false);
-    // })
-   
-  }
+    const a = axios
+      .post("/api/register", data)
+      .then(() => {
+        registerModal.onClose();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading 
-        title="환영합니다"
-        subtitle="계정을 생성해보세요."
-        center
-      />
-      <Input 
+      <Heading title="환영합니다" subtitle="계정을 생성해보세요." />
+      <Input
         id="email"
-        label="Email"
+        label="이메일"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="name"
+        label="이름"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="password"
+        type="password"
+        label="비밀번호"
         disabled={isLoading}
         register={register}
         errors={errors}
         required
       />
     </div>
-  )
+  );
 
   return (
-    <Modal 
+    <Modal
       disabled={isLoading}
       isOpen={registerModal.isOpen}
       title="회원가입"
       actionLabel="가입"
       onClose={registerModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
-      body={bodyContent}  
+      body={bodyContent}
     />
   );
 };
