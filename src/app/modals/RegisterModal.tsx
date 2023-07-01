@@ -29,7 +29,7 @@ const RegisterModal = () => {
     setIsLoading(true);
 
     const a = axios
-      .post("/api/test1", data)
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/test1`, data)
       .then(() => {
         console.log(a);
         registerModal.onClose();
