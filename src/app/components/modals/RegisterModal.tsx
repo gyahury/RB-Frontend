@@ -4,10 +4,10 @@ import axios from "axios";
 
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import useRegisterModal from "../hooks/useRegisterModal";
+import useRegisterModal from "../../hooks/useRegisterModal";
 import Modal from "./Modal";
-import Heading from "../components/Heading";
-import Input from "../components/inputs/Input";
+import Heading from "../Heading";
+import Input from "../inputs/Input";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();

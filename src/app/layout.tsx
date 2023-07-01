@@ -1,7 +1,7 @@
 import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
 import localFont from "next/font/local";
-import RegisterModal from "./modals/RegisterModal";
+import RegisterModal from "./components/modals/RegisterModal";
 
 const koFont = localFont({
   src: "./fonts/NotoSansKR-Regular.otf",
