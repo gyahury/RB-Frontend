@@ -29,8 +29,9 @@ const RegisterModal = () => {
     setIsLoading(true);
 
     const a = axios
-      .post("/api/register", data)
+      .post("/api/test1", data)
       .then(() => {
+        console.log(a);
         registerModal.onClose();
       })
       .catch((error) => {
