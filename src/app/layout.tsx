@@ -3,6 +3,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import RegisterModal from "./components/modals/RegisterModal";
 import { Toaster } from "react-hot-toast"
+import LoginModal from "./components/modals/LoginModal";
 
 const koFont = localFont({
   src: "./fonts/NotoSansKR-Regular.otf",
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={koFont.className}>
         <Toaster />
+        <LoginModal />
         <RegisterModal />
         <Navbar />
         {children}
