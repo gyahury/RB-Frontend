@@ -53,7 +53,7 @@ const LoginModal = () => {
     //     toast.error(callback.error);
     //   }
     // });
-    
+
   };
 
   const bodyContent = (
@@ -92,12 +92,12 @@ const LoginModal = () => {
       <Button outline label="네이버 로그인" icon={SiNaver} onClick={() => {}} />
       <div className="text-neutral-500 text-center mt-3 ml-2 font-light">
         <div className="flex flex-row items-center gap-2">
-          <div>이미 계정이 있으신가요?</div>
+          <div>처음이신가요 ?</div>
           <div
             className="text-neutral-800 cursor-pointer hover:underline"
             onClick={loginModal.onClose}
           >
-            로그인
+            회원가입
           </div>
         </div>
       </div>
