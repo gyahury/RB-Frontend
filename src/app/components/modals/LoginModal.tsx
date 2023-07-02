@@ -1,5 +1,6 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import axios from "axios";
 
 import { useCallback, useState } from "react";
@@ -10,11 +11,13 @@ import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Button from "../Button";
 import { FcGoogle } from "react-icons/fc";
-import { SiNaver } from "react-icons/si"
+import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
+  const router = useRouter();
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,6 +35,25 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
+    // next-auth 로그인 기본경로 /api/auth/callback/credentials 
+
+    // signIn("credentials", {
+    //   ...data,
+    //   redirect: false,
+    // }).then((callback) => {
+    //   setIsLoading(false);
+
+    //   if (callback?.ok) {
+    //     toast.success("로그인되었습니다.");
+    //     router.refresh();
+    //     loginModal.onClose();
+    //   }
+
+    //   if (callback?.error) {
+    //     toast.error(callback.error);
+    //   }
+    // });
+    
   };
 
   const bodyContent = (
@@ -61,14 +83,18 @@ const LoginModal = () => {
     <div className="flex flex-col gap-4 mt-3">
       <hr />
       <Button outline label="구글 로그인" icon={FcGoogle} onClick={() => {}} />
-      <Button outline label="카카오 로그인" icon={RiKakaoTalkFill} onClick={() => {}} />
+      <Button
+        outline
+        label="카카오 로그인"
+        icon={RiKakaoTalkFill}
+        onClick={() => {}}
+      />
       <Button outline label="네이버 로그인" icon={SiNaver} onClick={() => {}} />
       <div className="text-neutral-500 text-center mt-3 ml-2 font-light">
         <div className="flex flex-row items-center gap-2">
-          <div>
-            이미 계정이 있으신가요?
-          </div>
-          <div className="text-neutral-800 cursor-pointer hover:underline"
+          <div>이미 계정이 있으신가요?</div>
+          <div
+            className="text-neutral-800 cursor-pointer hover:underline"
             onClick={loginModal.onClose}
           >
             로그인
@@ -76,7 +102,6 @@ const LoginModal = () => {
         </div>
       </div>
     </div>
-   
   );
 
   return (
