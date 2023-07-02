@@ -5,9 +5,11 @@ import Avatar from "../Avatar";
 import { useCallback, useState } from "react";
 import MenuItems from "./MenuItems";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 const UserMenu = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
 
   const actionOpen = useCallback(() => {
@@ -36,7 +38,7 @@ const UserMenu = () => {
         <div className="absolute right-0 top-12 rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden text-sm">
           <div className="flex flex-col cursor-pointer ">
             <MenuItems 
-              onClick={() => {}}
+              onClick={loginModal.onOpen}
               subMenuName="로그인"
             />
             <MenuItems 
