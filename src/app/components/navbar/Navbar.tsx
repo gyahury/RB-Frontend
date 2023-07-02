@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 const Navbar = () => {
   
   const onTest = () => {
+    toast(`호출 API 주소  ${process.env.NEXT_PUBLIC_API_URL} /api/users/test1`)
     const a = axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/test1`)
       .then(() => {
