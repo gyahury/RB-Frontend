@@ -10,7 +10,7 @@ import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Button from "../Button";
 import { FcGoogle } from "react-icons/fc";
-import { SiNaver } from "react-icons/si"
+import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { toast } from "react-hot-toast";
 
@@ -21,22 +21,25 @@ const RegisterModal = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
       email: "",
       name: "",
       password: "",
+      role: "",
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-
-    const a = axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/test1`, data)
-      .then(() => {
-        console.log(a);
+    
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/create-account`, data)
+      .then((response) => {
+        console.log(response);
+        toast.success("회원가입에 성공했습니다.");
         registerModal.onClose();
       })
       .catch((error) => {
@@ -46,6 +49,8 @@ const RegisterModal = () => {
       .finally(() => {
         setIsLoading(false);
       });
+
+    reset();
   };
 
   const bodyContent = (
@@ -76,6 +81,14 @@ const RegisterModal = () => {
         errors={errors}
         required
       />
+      <Input
+        id="role"
+        label="역할"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
     </div>
   );
 
@@ -83,14 +96,18 @@ const RegisterModal = () => {
     <div className="flex flex-col gap-4 mt-3">
       <hr />
       <Button outline label="구글 로그인" icon={FcGoogle} onClick={() => {}} />
-      <Button outline label="카카오 로그인" icon={RiKakaoTalkFill} onClick={() => {}} />
+      <Button
+        outline
+        label="카카오 로그인"
+        icon={RiKakaoTalkFill}
+        onClick={() => {}}
+      />
       <Button outline label="네이버 로그인" icon={SiNaver} onClick={() => {}} />
       <div className="text-neutral-500 text-center mt-3 ml-2 font-light">
         <div className="flex flex-row items-center gap-2">
-          <div>
-            이미 계정이 있으신가요?
-          </div>
-          <div className="text-neutral-800 cursor-pointer hover:underline"
+          <div>이미 계정이 있으신가요?</div>
+          <div
+            className="text-neutral-800 cursor-pointer hover:underline"
             onClick={registerModal.onClose}
           >
             로그인
@@ -98,7 +115,6 @@ const RegisterModal = () => {
         </div>
       </div>
     </div>
-   
   );
 
   return (

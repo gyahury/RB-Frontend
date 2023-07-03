@@ -24,6 +24,7 @@ const LoginModal = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -35,25 +36,24 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    // next-auth 로그인 기본경로 /api/auth/callback/credentials 
+    // next-auth 로그인 기본경로 /api/auth/callback/credentials
 
-    // signIn("credentials", {
-    //   ...data,
-    //   redirect: false,
-    // }).then((callback) => {
-    //   setIsLoading(false);
-
-    //   if (callback?.ok) {
-    //     toast.success("로그인되었습니다.");
-    //     router.refresh();
-    //     loginModal.onClose();
-    //   }
-
-    //   if (callback?.error) {
-    //     toast.error(callback.error);
-    //   }
-    // });
-
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, data)
+      .then((response) => {
+        //console.log(response);
+        toast.success("로그인에 성공했습니다.");
+        reset();
+        router.refresh();
+        loginModal.onClose();
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("통신 오류가 발생했습니다.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const bodyContent = (
