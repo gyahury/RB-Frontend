@@ -13,6 +13,7 @@ import { FcGoogle } from "react-icons/fc";
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { toast } from "react-hot-toast";
+import Select from "../selectbox/Select";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -81,10 +82,13 @@ const RegisterModal = () => {
         errors={errors}
         required
       />
-      <Input
+      <Select
         id="role"
-        label="역할"
-        disabled={isLoading}
+        label="권한"
+        selectOne="사용자"
+        selectOneValue="User"
+        selectTwo="공인중개사"
+        selectTwoValue="Realtor"
         register={register}
         errors={errors}
         required
