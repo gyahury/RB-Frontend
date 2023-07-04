@@ -1,6 +1,5 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import axios from "axios";
 
 import { useCallback, useState } from "react";
@@ -39,7 +38,9 @@ const LoginModal = () => {
     // next-auth 로그인 기본경로 /api/auth/callback/credentials
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, data)
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, data, {
+        withCredentials: true,
+      })
       .then((response) => {
         //console.log(response);
         toast.success("로그인에 성공했습니다.");
