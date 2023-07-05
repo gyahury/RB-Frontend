@@ -38,7 +38,7 @@ const LoginModal = () => {
     // next-auth 로그인 기본경로 /api/auth/callback/credentials
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, data, {
+      .post(`${process.env.BACKEND_API_URL}/api/users/login`, data, {
         withCredentials: true,
       })
       .then((response) => {
