@@ -1,7 +1,5 @@
 "use client";
 
-import axios from "axios";
-
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -14,6 +12,8 @@ import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import axiosInterceptors from "@/app/utils/axiosInterceptors";
 
 const LoginModal = () => {
   const router = useRouter();
@@ -36,14 +36,14 @@ const LoginModal = () => {
     setIsLoading(true);
     // next-auth 로그인 기본경로 /api/auth/callback/credentials
 
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, data, {
+    axiosInterceptors
+      .post(`/api/users/login`, data, {
         withCredentials: true,
       })
       .then((response) => {
         //console.log(response);
+        Cookies.set("access-token", "Bearer " + response.data.data);
 
-        axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.access_token}`;
         toast.success("로그인에 성공했습니다.");
         reset();
         router.refresh();
