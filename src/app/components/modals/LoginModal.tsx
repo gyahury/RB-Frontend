@@ -34,15 +34,16 @@ const LoginModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-
     // next-auth 로그인 기본경로 /api/auth/callback/credentials
 
     axios
-      .post(`${process.env.BACKEND_API_URL}/api/users/login`, data, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, data, {
         withCredentials: true,
       })
       .then((response) => {
         //console.log(response);
+
+        axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.access_token}`;
         toast.success("로그인에 성공했습니다.");
         reset();
         router.refresh();

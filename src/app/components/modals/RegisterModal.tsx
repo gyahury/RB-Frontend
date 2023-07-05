@@ -37,7 +37,7 @@ const RegisterModal = () => {
     setIsLoading(true);
     
     axios
-      .post(`${process.env.BACKEND_API_URL}/api/users/create-account`, data)
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/create-account`, data)
       .then((response) => {
         console.log(response);
         toast.success("회원가입에 성공했습니다.");
