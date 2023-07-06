@@ -34,7 +34,6 @@ const LoginModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    // next-auth 로그인 기본경로 /api/auth/callback/credentials
 
     axiosInterceptors
       .post(`/api/users/login`, data, {
@@ -42,7 +41,7 @@ const LoginModal = () => {
       })
       .then((response) => {
         //console.log(response);
-        Cookies.set("access-token", "Bearer " + response.data.data);
+        Cookies.set("access-token", response.data.data);
 
         toast.success("로그인에 성공했습니다.");
         reset();

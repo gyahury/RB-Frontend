@@ -8,7 +8,8 @@ const axiosInterceptors = axios.create({
 });
 
 axiosInterceptors.interceptors.request.use((request) => {
-  const token = Cookies.get("access_token");
+  const token = Cookies.get("access-token");
+  
   if (token) {
     request.headers["rb-token"] = token;
   }

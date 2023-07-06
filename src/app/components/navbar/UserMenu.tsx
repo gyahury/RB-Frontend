@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 import MenuItems from "./MenuItems";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import axiosInterceptors from "@/app/utils/axiosInterceptors";
 
 const UserMenu = () => {
   const registerModal = useRegisterModal();
@@ -15,6 +16,16 @@ const UserMenu = () => {
   const actionOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
+
+  const apiTest = () => {
+    axiosInterceptors.get(`/api/users/profile`)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+  }
 
   return (
     <div className="relative">
@@ -44,6 +55,10 @@ const UserMenu = () => {
             <MenuItems 
               onClick={registerModal.onOpen}
               subMenuName="회원가입"
+            />
+            <MenuItems 
+              onClick={apiTest}
+              subMenuName="나의정보"
             />
           </div>
         </div>
