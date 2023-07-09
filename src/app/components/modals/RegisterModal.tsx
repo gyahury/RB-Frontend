@@ -38,12 +38,10 @@ const RegisterModal = () => {
     axiosInterceptors
       .post(`/api/users/create-account`, data)
       .then((response) => {
-        console.log(response);
         toast.success("회원가입에 성공했습니다.");
         registerModal.onClose();
       })
       .catch((error) => {
-        console.log(error);
         toast.error(error.response.data.message);
       })
       .finally(() => {

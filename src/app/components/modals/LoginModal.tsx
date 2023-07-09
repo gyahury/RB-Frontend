@@ -39,7 +39,6 @@ const LoginModal = () => {
   const updateUserInfo = async () => {
     const response = await axiosInterceptors.get(`/api/users/profile`);
     setUser(response.data.data);
-    console.log("들어왔니", useUserStore.getState().user);
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
