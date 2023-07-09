@@ -39,13 +39,11 @@ const Select: React.FC<SelectProps> = ({
         {...register(id, { required })}
         placeholder=" "
         className={`w-full p-4 font-light bg-white border-2 transition rounded-md outline-none disabled:opacity-70 disabled:cursor-not-allowed focus:ring-blue-500 
-            ${
-              errors[id] ? "border-rose-500 text-rose-500" : "border-zinc-500 'text-zinc-400"
-            }
+            ${errors[id] ? "border-rose-500 text-rose-500" : "border-zinc-500 text-zinc-600"}
             ${errors[id] ? "focus:border-rose-500" : "focus:border-blue-500"}
             `}
       >
-        <option value="" selected>{label}</option>
+        <option value="">{label}</option>
         {selectOne && <option value={selectOneValue}>{selectOne}</option>}
         {selectTwo && <option value={selectTwoValue}>{selectTwo}</option>}
         {selectThree && <option value={selectThreeValue}>{selectThree}</option>}

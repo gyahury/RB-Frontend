@@ -1,7 +1,5 @@
 "use client";
 
-import axios from "axios";
-
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -14,10 +12,16 @@ import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import axiosInterceptors from "@/app/utils/axiosInterceptors";
+import useUserMenu from "@/app/hooks/useUserMenu";
+import useUserStore from "@/app/hooks/useUserStore";
+import Cookies from "js-cookie";
 
 const LoginModal = () => {
   const router = useRouter();
   const loginModal = useLoginModal();
+  const userMenu = useUserMenu();
+  const setUser = useUserStore(state => state.setUser);
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -32,25 +36,29 @@ const LoginModal = () => {
     },
   });
 
+  const updateUserInfo = async () => {
+    const response = await axiosInterceptors.get(`/api/users/profile`);
+    setUser(response.data.data);
+  };
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    // next-auth 로그인 기본경로 /api/auth/callback/credentials
+    axiosInterceptors
+      .post(`/api/users/login`, data)
+      .then(response => {
+        Cookies.set("access-token", response.data.data);
+        updateUserInfo();
 
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, data, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        //console.log(response);
         toast.success("로그인에 성공했습니다.");
         reset();
         router.refresh();
+        userMenu.toggle();
         loginModal.onClose();
       })
       .catch((error) => {
         console.log(error);
-        toast.error("통신 오류가 발생했습니다.");
+        toast.error(error.response.data.message);
       })
       .finally(() => {
         setIsLoading(false);

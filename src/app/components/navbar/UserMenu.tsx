@@ -2,19 +2,37 @@
 
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import MenuItems from "./MenuItems";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import useUserStore from "@/app/hooks/useUserStore";
+import Cookies from "js-cookie";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import useUserMenu from "@/app/hooks/useUserMenu";
 
 const UserMenu = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
-  const [isOpen, setIsOpen] = useState(false);
+  const userMenu = useUserMenu();
+  const isOpen = userMenu.isOpen;
+  const currentUser = useUserStore.getState().user;
+  const setUser = useUserStore(state => state.setUser);
+  const router = useRouter();
 
   const actionOpen = useCallback(() => {
-    setIsOpen((value) => !value);
+    userMenu.toggle();
   }, []);
+  
+  const logout = () => {
+    Cookies.remove("access-token");
+    setUser(null);
+
+    router.refresh();
+    actionOpen();
+    toast.success("로그아웃되었습니다.")
+  }
 
   return (
     <div className="relative">
@@ -37,18 +55,32 @@ const UserMenu = () => {
       {isOpen && (
         <div className="absolute right-0 top-12 rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden text-sm">
           <div className="flex flex-col cursor-pointer ">
-            <MenuItems 
-              onClick={loginModal.onOpen}
-              subMenuName="로그인"
-            />
-            <MenuItems 
-              onClick={registerModal.onOpen}
-              subMenuName="회원가입"
-            />
+            { currentUser ? (
+              <>
+                <MenuItems 
+                  onClick={registerModal.onOpen}
+                  subMenuName="나의정보"
+                />
+                <MenuItems 
+                  onClick={logout}
+                  subMenuName="로그아웃"
+                />
+              </>
+            ) :
+              <>
+                <MenuItems 
+                  onClick={loginModal.onOpen}
+                  subMenuName="로그인"
+                />
+                <MenuItems 
+                  onClick={registerModal.onOpen}
+                  subMenuName="회원가입"
+                />
+              </>
+            }
+            
           </div>
         </div>
-      
-      
       )}
     </div>
   );

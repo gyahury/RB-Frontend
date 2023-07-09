@@ -1,8 +1,6 @@
 "use client";
 
-import axios from "axios";
-
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import Modal from "./Modal";
@@ -14,6 +12,7 @@ import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { toast } from "react-hot-toast";
 import Select from "../selectbox/Select";
+import axiosInterceptors from "@/app/utils/axiosInterceptors";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -36,16 +35,14 @@ const RegisterModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
     
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/create-account`, data)
+    axiosInterceptors
+      .post(`/api/users/create-account`, data)
       .then((response) => {
-        console.log(response);
         toast.success("회원가입에 성공했습니다.");
         registerModal.onClose();
       })
       .catch((error) => {
-        console.log(error);
-        toast.error("통신 오류가 발생했습니다.");
+        toast.error(error.response.data.message);
       })
       .finally(() => {
         setIsLoading(false);
