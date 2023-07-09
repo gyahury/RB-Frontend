@@ -34,7 +34,6 @@ const UserMenu = () => {
     toast.success("로그아웃되었습니다.")
   }
 
-
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">

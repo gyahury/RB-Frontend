@@ -1,7 +1,5 @@
 "use client";
 
-import axios from "axios";
-
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -17,6 +15,7 @@ import { useRouter } from "next/navigation";
 import axiosInterceptors from "@/app/utils/axiosInterceptors";
 import useUserMenu from "@/app/hooks/useUserMenu";
 import useUserStore from "@/app/hooks/useUserStore";
+import Cookies from "js-cookie";
 
 const LoginModal = () => {
   const router = useRouter();
@@ -49,7 +48,7 @@ const LoginModal = () => {
     axiosInterceptors
       .post(`/api/users/login`, data)
       .then(response => {
-
+        Cookies.set("access-token", response.data.data);
         updateUserInfo();
 
         toast.success("로그인에 성공했습니다.");
