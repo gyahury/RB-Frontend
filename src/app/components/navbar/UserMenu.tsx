@@ -58,7 +58,11 @@ const UserMenu = () => {
             { currentUser ? (
               <>
                 <MenuItems 
-                  onClick={registerModal.onOpen}
+                  onClick={() => {}}
+                  subMenuName="찜 목록"
+                />
+                <MenuItems 
+                  onClick={() => {}}
                   subMenuName="나의정보"
                 />
                 <MenuItems 
