@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import Modal from "./Modal";
@@ -13,8 +13,10 @@ import { RiKakaoTalkFill } from "react-icons/ri";
 import { toast } from "react-hot-toast";
 import Select from "../selectbox/Select";
 import axiosInterceptors from "@/app/utils/axiosInterceptors";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 const RegisterModal = () => {
+  const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,6 +52,11 @@ const RegisterModal = () => {
 
     reset();
   };
+
+  const loginRegisterToggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registerModal])
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -109,7 +116,7 @@ const RegisterModal = () => {
           <div>이미 계정이 있으신가요?</div>
           <div
             className="text-neutral-800 cursor-pointer hover:underline"
-            onClick={registerModal.onClose}
+            onClick={loginRegisterToggle}
           >
             로그인
           </div>

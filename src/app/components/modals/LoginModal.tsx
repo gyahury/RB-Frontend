@@ -16,10 +16,12 @@ import axiosInterceptors from "@/app/utils/axiosInterceptors";
 import useUserMenu from "@/app/hooks/useUserMenu";
 import useUserStore from "@/app/hooks/useUserStore";
 import Cookies from "js-cookie";
+import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 const LoginModal = () => {
   const router = useRouter();
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
   const userMenu = useUserMenu();
   const setUser = useUserStore(state => state.setUser);
   const [isLoading, setIsLoading] = useState(false);
@@ -65,6 +67,11 @@ const LoginModal = () => {
       });
   };
 
+  const loginRegisterToggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal])
+
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="" subtitle="" />
@@ -104,7 +111,7 @@ const LoginModal = () => {
           <div>처음이신가요 ?</div>
           <div
             className="text-neutral-800 cursor-pointer hover:underline"
-            onClick={loginModal.onClose}
+            onClick={loginRegisterToggle}
           >
             회원가입
           </div>
