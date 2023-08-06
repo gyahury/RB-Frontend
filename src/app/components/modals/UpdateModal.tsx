@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from "./Modal";
 import Heading from "../Heading";
@@ -8,7 +8,6 @@ import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axiosInterceptors from "@/app/utils/axiosInterceptors";
-import useUserStore from "@/app/hooks/useUserStore";
 import useUpdateModal from "@/app/hooks/useUpdateModal";
 import Select from "../selectbox/Select";
 
@@ -16,7 +15,6 @@ const UpdateModal = () => {
   const router = useRouter();
   const updateModal = useUpdateModal();
   const [isLoading, setIsLoading] = useState(false);
-  const user = useUserStore(state => state.user);
 
   const {
     register,
@@ -25,15 +23,14 @@ const UpdateModal = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      email: "",
       name: "",
       role: ""
     },
   });
 
-
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
+    alert(JSON.stringify(data));
 
     axiosInterceptors
       .put(`/api/users/profile`, data)
@@ -55,14 +52,6 @@ const UpdateModal = () => {
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="" subtitle="" />
-      <Input
-        id="email"
-        label="이메일"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
       <Input
         id="name"
         label="이름"
