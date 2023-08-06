@@ -11,10 +11,12 @@ import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import useUserMenu from "@/app/hooks/useUserMenu";
+import useUpdateModal from "@/app/hooks/useUpdateModal";
 
 const UserMenu = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const updateModal = useUpdateModal();
   const userMenu = useUserMenu();
   const isOpen = userMenu.isOpen;
   const currentUser = useUserStore.getState().user;
@@ -62,8 +64,8 @@ const UserMenu = () => {
                   subMenuName="찜 목록"
                 />
                 <MenuItems 
-                  onClick={() => {}}
-                  subMenuName="나의정보"
+                  onClick={updateModal.onOpen}
+                  subMenuName="나의정보 수정"
                 />
                 <MenuItems 
                   onClick={logout}

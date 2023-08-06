@@ -8,17 +8,15 @@ import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axiosInterceptors from "@/app/utils/axiosInterceptors";
-import useUserMenu from "@/app/hooks/useUserMenu";
 import useUserStore from "@/app/hooks/useUserStore";
-import Cookies from "js-cookie";
 import useUpdateModal from "@/app/hooks/useUpdateModal";
+import Select from "../selectbox/Select";
 
 const UpdateModal = () => {
   const router = useRouter();
   const updateModal = useUpdateModal();
-  const userMenu = useUserMenu();
-  const setUser = useUserStore(state => state.setUser);
   const [isLoading, setIsLoading] = useState(false);
+  const user = useUserStore(state => state.user);
 
   const {
     register,
@@ -28,24 +26,18 @@ const UpdateModal = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       email: "",
-      password: "",
+      name: "",
+      role: ""
     },
   });
 
-  const updateUserInfo = async () => {
-    const response = await axiosInterceptors.get(`/api/users/profile`);
-    setUser(response.data.data);
-  };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
     axiosInterceptors
-      .post(`/api/users/profile`, data)
+      .put(`/api/users/profile`, data)
       .then(response => {
-        Cookies.set("access-token", response.data.data);
-        updateUserInfo();
-
         toast.success("수정에 성공했습니다.");
         reset();
         router.refresh();
@@ -72,10 +64,20 @@ const UpdateModal = () => {
         required
       />
       <Input
-        id="password"
-        type="password"
-        label="비밀번호"
+        id="name"
+        label="이름"
         disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Select
+        id="role"
+        label="권한"
+        selectOne="사용자"
+        selectOneValue="User"
+        selectTwo="공인중개사"
+        selectTwoValue="Realtor"
         register={register}
         errors={errors}
         required
