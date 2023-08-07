@@ -10,11 +10,31 @@ import { useRouter } from "next/navigation";
 import axiosInterceptors from "@/app/utils/axiosInterceptors";
 import useUpdateModal from "@/app/hooks/useUpdateModal";
 import Select from "../selectbox/Select";
+import useUserStore from "@/app/hooks/useUserStore";
 
 const UpdateModal = () => {
   const router = useRouter();
   const updateModal = useUpdateModal();
   const [isLoading, setIsLoading] = useState(false);
+  const fetchUser = useUserStore((state) => state.fetchUser);
+  const token = useUserStore((state) => state.token);
+  const user = useUserStore((state) => state.user);
+
+  // 토큰 감지하여 사용자 정보 조회
+  useEffect(() => {
+    const fetchDataAndSetForm = async () => {
+      try {
+        const fetchedUser = await fetchUser();
+        reset({
+          name: fetchedUser.name,
+          role: fetchedUser.role,
+        });
+      } catch (error) {
+        console.error("Failed to fetch and set form data: ", error);
+      }
+    };
+    fetchDataAndSetForm();
+  }, [token]);
 
   const {
     register,
@@ -24,19 +44,21 @@ const UpdateModal = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       name: "",
-      role: ""
+      role: "",
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    alert(JSON.stringify(data));
 
     axiosInterceptors
       .put(`/api/users/profile`, data)
-      .then(response => {
+      .then((response) => {
         toast.success("수정에 성공했습니다.");
-        reset();
+        reset({
+          name: data.name,
+          role: data.role,
+        });
         router.refresh();
         updateModal.onClose();
       })
@@ -74,13 +96,12 @@ const UpdateModal = () => {
     </div>
   );
 
-
   return (
     <Modal
       disabled={isLoading}
       isOpen={updateModal.isOpen}
-      title="나의정보 수정"
-      actionLabel="나의정보 수정"
+      title={user?.email + " 정보 수정"}
+      actionLabel={"수정"}
       onClose={updateModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

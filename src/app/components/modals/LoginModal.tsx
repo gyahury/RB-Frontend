@@ -24,6 +24,7 @@ const LoginModal = () => {
   const registerModal = useRegisterModal();
   const userMenu = useUserMenu();
   const setUser = useUserStore(state => state.setUser);
+  const setToken = useUserStore(state => state.setToken);
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -50,6 +51,7 @@ const LoginModal = () => {
       .post(`/api/users/login`, data)
       .then(response => {
         Cookies.set("access-token", response.data.data);
+        setToken(response.data.data);
         updateUserInfo();
 
         toast.success("로그인에 성공했습니다.");

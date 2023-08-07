@@ -2,7 +2,7 @@
 
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import MenuItems from "./MenuItems";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -12,8 +12,6 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import useUserMenu from "@/app/hooks/useUserMenu";
 import useUpdateModal from "@/app/hooks/useUpdateModal";
-import axiosInterceptors from "@/app/utils/axiosInterceptors";
-import { isAxiosError } from "axios";
 
 const UserMenu = () => {
   const registerModal = useRegisterModal();
@@ -28,26 +26,6 @@ const UserMenu = () => {
   const actionOpen = useCallback(() => {
     userMenu.toggle();
   }, []);
-
-  const fetchUserInfo = async () => {
-    try {
-      const response = await axiosInterceptors.get(`/api/users/profile`);
-      setUser(response.data.data);
-      alert(JSON.stringify(response.data.data));
-    } catch (error) {
-      if (isAxiosError(error)) {
-        if (error.response && error.response.status === 403) {
-          console.error("Unauthorized request: ", error);
-        } else {
-          console.error("An error occurred: ", error);
-        }
-      }
-    }
-  };
-
-  useEffect(() => {
-    fetchUserInfo();
-  }, []); 
 
   const logout = () => {
     Cookies.remove("access-token");
