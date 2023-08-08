@@ -1,9 +1,9 @@
 import Container from "../components/Container";
 
-export default function Home() {
+export default function Intro() {
     return (
       <Container>
-        <div className="pt-24 text-center animate-fade-up animate-once animate-ease-in">
+        <div className="pt-24 text-center">
             <div>부동산 매물을 확인해보세요.</div>
         </div>
       </Container>

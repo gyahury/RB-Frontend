@@ -40,7 +40,7 @@ const UserMenu = () => {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={() => {}}
+          onClick={() => router.push('/intro')}
           className="hidden md:block text-sm text-gray-600 py-3 px-5 rounded-full hover:bg-neutral-100 transition cursor-pointer border-b-[1px]"
         >
           부동산 매물을 확인해보세요 !
