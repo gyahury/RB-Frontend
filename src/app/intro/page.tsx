@@ -36,7 +36,7 @@ export default function Intro() {
         >
             <div className="flex-1">
                 <Image
-                    alt="intro-1"
+                    alt="intro1"
                     className=""
                     width="800"
                     height="500"
@@ -60,11 +60,11 @@ export default function Intro() {
             </div>
             <div className="flex-1">
                 <Image
-                    alt="intro-1"
+                    alt="intro2"
                     className=""
                     width="800"
                     height="500"
-                    src="/images/intro-1.jpg"
+                    src="/images/intro-2.jpg"
                     placeholder="blur"
                     blurDataURL="data:..."
                 />
