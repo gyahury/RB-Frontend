@@ -36,7 +36,7 @@ export default function Intro() {
         >
             <div className="flex-1">
                 <Image
-                    alt="intro-1"
+                    alt="intro1"
                     className=""
                     width="800"
                     height="500"
@@ -55,16 +55,16 @@ export default function Intro() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 ,delay: 3 }}
         >
-            <div className="flex-1 text-lg">
-                회원가입 후 <span className="text-rose-500">매물을 등록하거나 매물을 확인</span>해보세요 !
+            <div className="flex-1 lg:text-lg sm:text-sm md:text-md text-xs">
+                회원가입 후 <span className="text-rose-500">매물을 등록</span>하거나<br/> <span className="text-rose-500">매물을 확인</span>해보세요 !
             </div>
             <div className="flex-1">
                 <Image
-                    alt="intro-1"
+                    alt="intro2"
                     className=""
                     width="800"
                     height="500"
-                    src="/images/intro-1.jpg"
+                    src="/images/intro-2.jpg"
                     placeholder="blur"
                     blurDataURL="data:..."
                 />
