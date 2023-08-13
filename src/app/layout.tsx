@@ -2,8 +2,9 @@ import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
 import localFont from "next/font/local";
 import RegisterModal from "./components/modals/RegisterModal";
-import { Toaster } from "react-hot-toast"
+import { Toaster } from "react-hot-toast";
 import LoginModal from "./components/modals/LoginModal";
+import UpdateModal from "./components/modals/UpdateModal";
 
 const koFont = localFont({
   src: "./fonts/NotoSansKR-Regular.otf",
@@ -26,8 +27,9 @@ export default function RootLayout({
         <Toaster />
         <LoginModal />
         <RegisterModal />
+        <UpdateModal />
         <Navbar />
-        {children}
+        <div className="pb-10 pt-28">{children}</div>
       </body>
     </html>
   );
