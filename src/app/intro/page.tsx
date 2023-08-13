@@ -13,7 +13,6 @@ export default function Intro() {
     <Container>
       <div className="xl:px-52 md:px-24 sm:px-10 px-4 pt-40 xl:text-4xl md:text-3xl sm:text-2xl text-xl text-center font-semibold">
         <motion.div
-        //   style={{ scaleX: scrollYProgress }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
@@ -75,7 +74,7 @@ export default function Intro() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 ,delay: 4}}
+          transition={{ duration: 0.8 ,delay: 3.5}}
         >
           <Button 
             label="매물 확인하러 가기"

@@ -29,7 +29,7 @@ export default function RootLayout({
         <RegisterModal />
         <UpdateModal />
         <Navbar />
-        <div className="pb-20 pt-28">{children}</div>
+        <div className="pb-10 pt-28">{children}</div>
       </body>
     </html>
   );
